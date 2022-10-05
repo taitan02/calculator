@@ -13,11 +13,11 @@ function Display({ currentCalculation = "0", previousCalculation, operator }) {
   return (
     <div className='w-full py-2'>
       {/* previous */}
-      <div className='py-2 px-4 h-6 flex justify-end text-xl text-white opacity-80 font-bold'>
+      <div className='py-2 px-4 h-6 flex justify-end text-xl text-white opacity-80 font-medium'>
         {formatOperand(previousCalculation)} {operator}
       </div>
       {/* current */}
-      <div className='py-2 px-4 h-20  flex justify-end text-6xl text-white font-bold'>{formatOperand(currentCalculation)}</div>
+      <div className='py-2 px-4 min-h-[80px] flex break-all justify-end items-end text-6xl text-white font-semibold'>{formatOperand(currentCalculation)}</div>
     </div>
   );
 }
