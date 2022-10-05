@@ -1,13 +1,16 @@
-import { useReducer, useContext } from "react";
+import { useState, useReducer, useContext, useEffect } from "react";
 import Button from "./components/Button";
 import Display from "./components/Display";
+import Sidebar from "./components/Sidebar";
 import { FiDelete, FiMinus } from "react-icons/fi";
 import { TiDivide } from "react-icons/ti";
-import { GoPlus } from "react-icons/go";
-import { FaEquals } from "react-icons/fa";
-import { GoUnmute, GoMute } from "react-icons/go";
-import { ACTIONS } from "./util/constant";
+import { FaEquals, FaBars, FaCalculator, FaGithub } from "react-icons/fa";
+import { GoUnmute, GoMute, GoPlus, GoGraph } from "react-icons/go";
+import { MdOutlineScience, MdOutlineAttachMoney, MdAccessTime } from "react-icons/md";
+import { TbTemperature } from "react-icons/tb";
+import { ACTIONS, FEATURES } from "./util/constant";
 import { MainContext } from "./context/MainContext";
+
 const reducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.ADD_NUMBER:
@@ -83,18 +86,64 @@ const calculate = ({ currentCalculation, previousCalculation, operator }) => {
 };
 function App() {
   const { mute, setMute } = useContext(MainContext);
+  const [isShowSidebar, setShowSidebar] = useState(false);
+  const [seletedFeature, setSelectedFeature] = useState(FEATURES.STANDARD);
+  const [features, setFeatures] = useState([]);
   const [state, dispatch] = useReducer(reducer, {});
   const { currentCalculation, previousCalculation, operator } = state;
+  useEffect(() => {
+    //Gộp 2 array
+    const arrayFeatures = Object.values(FEATURES);
+    const icons = [
+      <FaCalculator size={20} />,
+      <MdOutlineScience size={20} />,
+      <GoGraph size={20} />,
+      <MdOutlineAttachMoney size={20} />,
+      <TbTemperature size={20} />,
+      <MdAccessTime size={20} />,
+    ];
+    const _features = arrayFeatures.map((feature, index) => ({ feat: feature, icon: icons[index] }));
+    setFeatures(_features);
+  }, []);
   return (
-    <div className='flex'>
-      <div className='hidden md:flex flex-col items-center w-1/4 bg-[#0f1722] h-screen'>
-        <div className="text-white m-14">
-          <h1 className='text-2xl text-center font-semibold uppercase p-4 font-serif'>calculator</h1>
-          <h3>This is just a very basic calculator</h3>
+    <div className='flex flex-col md:flex-row'>
+      <Sidebar onClose={() => setShowSidebar(false)} isShowSidebar={isShowSidebar} />
+      <button className='w-fit md:hidden text-yellow-500 ml-5 mt-5 p-2 bg-[#151e2b]' onClick={() => setShowSidebar(true)}>
+        <FaBars size={30} />
+      </button>
+      <div className='hidden md:flex flex-col items-center md::w-1/4 bg-[#0f1722] h-screen'>
+        <div className='text-white m-14 w-full flex flex-col items-center'>
+          {/* <h1 className='text-2xl text-center font-semibold uppercase py-4 font-serif'>calculator</h1> */}
+          <span class='before:block before:absolute before:-inset-5  before:border-[3px] before:border-cyan-500 before:rounded-lg before:animate-rotate mb-10 relative inline-block '>
+            <span class='relative text-2xl text-[#208bee] font-semibold uppercase font-serif'>Calculator</span>
+          </span>
+          <h3 className='text-center'>This is just a very basic calculator</h3>
         </div>
-        <button className='p-4 bg-[#151e2b] hover:opacity-50 duration-500 text-white' onClick={() => setMute(!mute)}>
-          {mute ? <GoUnmute size={30} /> : <GoMute size={30} />}
+        <button className='relative p-4 bg-[#151e2b] hover:opacity-50 group duration-500 text-white' onClick={() => setMute(!mute)}>
+          {!mute ? <GoUnmute size={30} /> : <GoMute size={30} />}
+          <div className='absolute hidden group-hover:flex justify-center items-center py-2 px-6 left-full top-0 rounded-xl bg-[#354357] '>
+            {!mute ? "unmute" : "mute"}
+          </div>
         </button>
+        <div className='grid grid-cols-2 px-4 gap-4 mt-10 text-white'>
+          {features.map((feature) => (
+            <button
+              key={feature.feat}
+              onClick={() => setSelectedFeature(feature.feat)}
+              className={`p-4 ${feature.feat === seletedFeature ? "bg-[#5a94df]" : "bg-[#151e2b]"} hover:opacity-50 duration-500 `}
+            >
+              {feature.icon}
+            </button>
+          ))}
+        </div>
+        <a
+          target='_blank'
+          rel='noreferrer'
+          href='https://github.com/taitan02/calculator'
+          className='mt-24 w-14 h-14 hover:scale-125 hover:text-lime-50 duration-500'
+        >
+          <FaGithub className='text-primary w-full h-full' />
+        </a>
       </div>
       <div className='grid justify-center items-center max-w-[360px] mx-auto'>
         {/* Output part*/}

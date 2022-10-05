@@ -9,7 +9,7 @@ function Button({ children, className, onClick }) {
     <button
       className={`relative flex px-8 py-8 bg-[#354357] items-center text-white text-xl group justify-center font-semibold ${className}`}
       onClick={() => {
-        mute && Click.play();
+        !mute && Click.play();
         onClick();
       }}
     >

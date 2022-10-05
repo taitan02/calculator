@@ -11,7 +11,6 @@ function Display({ currentCalculation = "0", previousCalculation, operator }) {
     if (decimal == null) return INTEGER_FORMATTER.format(integer);
     return `${INTEGER_FORMATTER.format(integer)}.${decimal}`;
   };
-  console.log("display")
   return (
     <div className='w-full py-2'>
       {/* previous */}

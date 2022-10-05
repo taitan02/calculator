@@ -5,3 +5,11 @@ export const ACTIONS = {
     CLEAR: "clear",
     CALCULATE: "calculate",
   };
+export const FEATURES = {
+    STANDARD:"standard",
+    SCIENCE:"science",
+    GRAPHING:"graphing",
+    CURRENCY:"currency",
+    TEMPERATURE:"temperature",
+    TIME:"time"
+}
