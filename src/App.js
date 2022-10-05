@@ -119,7 +119,7 @@ function App() {
           </span>
           <h3 className='text-center'>This is just a very basic calculator</h3>
         </div>
-        <button className='relative p-4 bg-[#151e2b] hover:opacity-50 group duration-500 text-white' onClick={() => setMute(!mute)}>
+        <button className='relative p-4 bg-[#151e2b] hover:bg-opacity-50 group duration-500 text-white' onClick={() => setMute(!mute)}>
           {!mute ? <GoUnmute size={30} /> : <GoMute size={30} />}
           <div className='absolute hidden group-hover:flex justify-center items-center py-2 px-6 left-full top-0 rounded-xl bg-[#354357] '>
             {!mute ? "unmute" : "mute"}
