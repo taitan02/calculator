@@ -106,7 +106,7 @@ function App() {
     setFeatures(_features);
   }, []);
   return (
-    <div className='flex flex-col md:flex-row'>
+    <div className='flex flex-col md:flex-row select-none'>
       <Sidebar onClose={() => setShowSidebar(false)} isShowSidebar={isShowSidebar} />
       <button className='w-fit md:hidden text-yellow-500 ml-5 mt-5 p-2 bg-[#151e2b]' onClick={() => setShowSidebar(true)}>
         <FaBars size={30} />
@@ -149,7 +149,7 @@ function App() {
           <FaGithub className='w-full h-full' />
         </a>
       </div>
-      <div className='grid justify-center items-center max-w-[360px] mx-auto'>
+      <div className='grid justify-center items-center max-w-[360px] mx-auto  py-4'>
         {/* Output part*/}
         <div>
           <Display currentCalculation={currentCalculation} previousCalculation={previousCalculation} operator={operator} />
