@@ -111,9 +111,8 @@ function App() {
       <button className='w-fit md:hidden text-yellow-500 ml-5 mt-5 p-2 bg-[#151e2b]' onClick={() => setShowSidebar(true)}>
         <FaBars size={30} />
       </button>
-      <div className='hidden md:flex flex-col items-center md::w-1/4 bg-[#0f1722] h-screen'>
+      <div className='hidden sticky h-screen top-0 md:flex flex-col items-center md::w-1/4 bg-[#0f1722] '>
         <div className='text-white m-14 w-full flex flex-col items-center'>
-          {/* <h1 className='text-2xl text-center font-semibold uppercase py-4 font-serif'>calculator</h1> */}
           <span class='before:block before:absolute before:-inset-5  before:border-[3px] before:border-cyan-500 before:rounded-lg before:animate-rotate mb-10 relative inline-block '>
             <span class='relative text-2xl text-[#208bee] font-semibold uppercase font-serif'>Calculator</span>
           </span>
@@ -121,18 +120,23 @@ function App() {
         </div>
         <button className='relative p-4 bg-[#151e2b] hover:bg-opacity-50 group duration-500 text-white' onClick={() => setMute(!mute)}>
           {!mute ? <GoUnmute size={30} /> : <GoMute size={30} />}
-          <div className='absolute hidden group-hover:flex justify-center items-center py-2 px-6 left-full top-0 rounded-xl bg-[#354357] '>
+          <div className='absolute hidden group-hover:flex justify-center items-center py-2 px-6 translate-x-2 left-full top-0 rounded-xl bg-[#354357] '>
             {!mute ? "unmute" : "mute"}
           </div>
         </button>
-        <div className='grid grid-cols-2 px-4 gap-4 mt-10 text-white'>
+        <div className='grid grid-cols-2 px-4 gap-4 m-10 text-white'>
           {features.map((feature) => (
             <button
               key={feature.feat}
               onClick={() => setSelectedFeature(feature.feat)}
-              className={`p-4 ${feature.feat === seletedFeature ? "bg-[#5a94df]" : "bg-[#151e2b]"} hover:opacity-50 duration-500 `}
+              className={`p-4 ${
+                feature.feat === seletedFeature ? "bg-[#5a94df]" : "bg-[#151e2b]"
+              } relative group hover:bg-opacity-50 rounded-lg duration-500 `}
             >
               {feature.icon}
+              <div className='absolute hidden z-50 left-full top-0 translate-x-2  group-hover:flex justify-center items-center py-2 px-6 capitalize rounded-xl bg-[#354357] '>
+                {feature.feat}
+              </div>
             </button>
           ))}
         </div>
@@ -140,9 +144,9 @@ function App() {
           target='_blank'
           rel='noreferrer'
           href='https://github.com/taitan02/calculator'
-          className='mt-24 w-14 h-14 hover:scale-125 hover:text-lime-50 duration-500'
+          className=' w-14 h-14 hover:scale-125 hover:text-lime-50 duration-500'
         >
-          <FaGithub className='text-primary w-full h-full' />
+          <FaGithub className='w-full h-full' />
         </a>
       </div>
       <div className='grid justify-center items-center max-w-[360px] mx-auto'>
